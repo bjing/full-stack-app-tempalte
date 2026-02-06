@@ -1,24 +1,19 @@
-dist
-dist-*
-cabal-dev
-*.o
-*.hi
-*.hie
-*.chi
-*.chs.h
-*.dyn_o
-*.dyn_hi
-.hpc
-.hsenv
-.cabal-sandbox/
-cabal.sandbox.config
-*.prof
-*.aux
-*.hp
-*.eventlog
-.stack-work/
-cabal.project.local
-cabal.project.local~
-.HTF/
-.ghc.environment.*
-*.cabal
+.vscode/
+# Dependencies
+**/node_modules/
+*/node_modules/
+
+# Test results and coverage
+**/test-results/
+*/test-results/
+**/jest-html-reporters-attach/
+*/jest-html-reporters-attach/
+**/*.html
+jest_html_reporters.html
+/coverage
+**/coverage/
+*/coverage/
+
+# OS files
+.DS_Store
+*.pem
