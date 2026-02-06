@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main, setup ]
+  workflow_dispatch:
+
+jobs:
+  backend:
+    name: Build & Test Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Stack
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.stack
+            backend/.stack-work
+          key: ${{ runner.os }}-stack-${{ hashFiles('backend/stack.yaml','backend/package.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-stack-
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y liblzma-dev
+      - uses: haskell/actions/setup@v2
+        with:
+          enable-stack: true
+          stack-version: latest
+          stack-no-global: true
+          ghc-version: "9.6.7"
+      - name: Build and test
+        working-directory: backend
+        run: |
+          stack build --no-terminal --test
+
+  frontend:
+    name: Build & Lint Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json','frontend/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install and build
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+      - name: Lint
+        run: |
+          cd frontend
+          npm run lint

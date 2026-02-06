@@ -1,5 +1,7 @@
 # Full-Stack App Template
 
+[![CI](https://github.com/bjing/full-stack-app-tempalte/actions/workflows/ci.yml/badge.svg)](https://github.com/bjing/full-stack-app-tempalte/actions/workflows/ci.yml)
+
 A modern full-stack application template with a Haskell backend and Next.js frontend.
 
 ## Project Structure
@@ -34,8 +36,6 @@ A modern full-stack application template with a Haskell backend and Next.js fron
 ```bash
 cd backend
 stack build
-# or using cabal
-cabal build
 ```
 
 ### Frontend Setup
@@ -54,8 +54,6 @@ yarn install
 ```bash
 cd backend
 stack run
-# or
-cabal run
 ```
 
 ### Start the Frontend Development Server
